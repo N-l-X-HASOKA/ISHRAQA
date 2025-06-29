@@ -24,6 +24,7 @@
             --social-instagram: #E1306C;
             --social-youtube: #FF0000;
             --social-telegram: #0088cc;
+            --library-primary: #3498db;
             
             /* ألوان إضافية */
             --success: #28a745;
@@ -49,6 +50,7 @@
             --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
             --gradient-profile: linear-gradient(135deg, var(--profile-primary), var(--profile-secondary));
             --gradient-social: linear-gradient(135deg, var(--social-primary), var(--social-secondary));
+            --gradient-library: linear-gradient(135deg, var(--library-primary), #1a5276);
         }
 
         /* ======== إعادة تعيين الأنماط ======== */
@@ -809,83 +811,115 @@
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
 
-        /* ======== صفحة الفيديوهات ======== */
-        .videos-container {
+        /* ======== صفحة المكتبة ======== */
+        #libraryPage .page-title {
+            color: var(--library-primary);
+        }
+
+        #libraryPage .page-title::after {
+            background: var(--accent);
+        }
+
+        .library-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
             margin-top: 30px;
         }
 
-        .video-card {
+        .library-card {
             background: var(--white);
             border-radius: var(--radius-md);
             overflow: hidden;
             box-shadow: var(--shadow-sm);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
 
-        .video-card:hover {
+        .library-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-lg);
         }
 
-        .video-thumbnail {
-            position: relative;
-            height: 180px;
-            background: linear-gradient(45deg, #2c7865, #004445);
-            overflow: hidden;
+        .library-header {
+            background: var(--gradient-library);
+            color: var(--white);
+            padding: 1.2rem;
+            text-align: center;
         }
 
-        .video-thumbnail::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.3);
+        .library-name {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
         }
 
-        .play-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(255,255,255,0.8);
-            border-radius: var(--radius-circle);
+        .library-body {
+            padding: 1.5rem;
+        }
+
+        .file-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .file-item {
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 1.5rem;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: var(--radius-sm);
+            background: var(--light-gray);
             transition: all 0.3s;
         }
 
-        .video-card:hover .play-icon {
-            background: var(--accent);
-            color: var(--white);
-            transform: translate(-50%, -50%) scale(1.1);
+        .file-item:hover {
+            background: rgba(52, 152, 219, 0.1);
+            transform: translateX(5px);
         }
 
-        .video-info {
-            padding: 1.2rem;
-        }
-
-        .video-title {
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            background: rgba(52, 152, 219, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            color: var(--library-primary);
             font-size: 1.2rem;
-            color: var(--dark);
-            margin-bottom: 10px;
-            font-weight: 600;
         }
 
-        .video-meta {
+        .file-info {
+            flex: 1;
+        }
+
+        .file-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 3px;
+        }
+
+        .file-meta {
             display: flex;
             justify-content: space-between;
             color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .download-btn {
+            background: var(--library-primary);
+            color: var(--white);
+            border-radius: var(--radius-sm);
+            padding: 6px 12px;
             font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         /* ======== الرسوم المتحركة ======== */
@@ -924,7 +958,7 @@
                 text-align: center;
             }
             
-            .features-container, .subjects-container, .tests-container, .videos-container {
+            .features-container, .subjects-container, .tests-container, .library-container {
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
             
@@ -948,7 +982,7 @@
                 margin-top: 150px;
             }
             
-            .features-container, .subjects-container, .tests-container, .videos-container {
+            .features-container, .subjects-container, .tests-container, .library-container {
                 grid-template-columns: 1fr;
             }
             
@@ -1039,10 +1073,10 @@
                 
                 <div class="feature-card">
                     <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-book-open"></i>
                     </div>
-                    <h3>تتبع التقدم</h3>
-                    <p>تتبع تقدمك التعليمي وحصيلتك المعرفية مع إحصائيات مفصلة ورسوم بيانية توضيحية</p>
+                    <h3>مكتبة علمية شاملة</h3>
+                    <p>مجموعة واسعة من الكتب والملفات التعليمية لجميع المواد الدراسية بصيغة PDF</p>
                 </div>
             </div>
         </div>
@@ -1169,6 +1203,13 @@
                             </div>
                             <div class="info-item">
                                 <div class="info-label">
+                                    <i class="fas fa-user-tag"></i>
+                                    النسبة
+                                </div>
+                                <div class="info-value">العلوم الطبيعية</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">
                                     <i class="fas fa-id-card"></i>
                                     رقم الهوية
                                 </div>
@@ -1176,17 +1217,10 @@
                             </div>
                             <div class="info-item">
                                 <div class="info-label">
-                                    <i class="fas fa-birthday-cake"></i>
-                                    تاريخ الميلاد
+                                    <i class="fas fa-key"></i>
+                                    الرقم السري
                                 </div>
-                                <div class="info-value">01/01/2000</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    العنوان
-                                </div>
-                                <div class="info-value">دمشق، سوريا</div>
+                                <div class="info-value">●●●●●●</div>
                             </div>
                         </div>
                     </div>
@@ -1350,53 +1384,176 @@
             </div>
         </div>
         
-        <!-- صفحة الفيديوهات -->
-        <div id="videosPage" class="page">
-            <h1 class="page-title">فيديوهات تعليمية</h1>
+        <!-- صفحة المكتبة -->
+        <div id="libraryPage" class="page">
+            <h1 class="page-title">المكتبة العلمية</h1>
             
-            <div class="videos-container">
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <div class="play-icon">
-                            <i class="fas fa-play"></i>
-                        </div>
+            <div class="library-container">
+                <div class="library-card">
+                    <div class="library-header">
+                        <h3 class="library-name">الرياضيات</h3>
+                        <p>ملفات PDF ومراجع دراسية</p>
                     </div>
-                    <div class="video-info">
-                        <h3 class="video-title">المعادلات التربيعية - الجزء الأول</h3>
-                        <div class="video-meta">
-                            <span>الرياضيات</span>
-                            <span>15 دقيقة</span>
-                        </div>
+                    <div class="library-body">
+                        <ul class="file-list">
+                            <li class="file-item">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-title">الجبر الخطي - الجزء الأول</div>
+                                    <div class="file-meta">
+                                        <span>PDF</span>
+                                        <span>2.4MB</span>
+                                    </div>
+                                </div>
+                                <button class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </li>
+                            <li class="file-item">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-title">الهندسة التحليلية</div>
+                                    <div class="file-meta">
+                                        <span>PDF</span>
+                                        <span>1.8MB</span>
+                                    </div>
+                                </div>
+                                <button class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </li>
+                            <li class="file-item">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-title">حساب التفاضل والتكامل</div>
+                                    <div class="file-meta">
+                                        <span>PDF</span>
+                                        <span>3.2MB</span>
+                                    </div>
+                                </div>
+                                <button class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <div class="play-icon">
-                            <i class="fas fa-play"></i>
-                        </div>
+                <div class="library-card">
+                    <div class="library-header">
+                        <h3 class="library-name">الفيزياء</h3>
+                        <p>ملفات PDF ومراجع دراسية</p>
                     </div>
-                    <div class="video-info">
-                        <h3 class="video-title">قوانين نيوتن للحركة</h3>
-                        <div class="video-meta">
-                            <span>الفيزياء</span>
-                            <span>20 دقيقة</span>
-                        </div>
+                    <div class="library-body">
+                        <ul class="file-list">
+                            <li class="file-item">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-title">الميكانيكا الكلاسيكية</div>
+                                    <div class="file-meta">
+                                        <span>PDF</span>
+                                        <span>2.1MB</span>
+                                    </div>
+                                </div>
+                                <button class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </li>
+                            <li class="file-item">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-title">الكهرومغناطيسية</div>
+                                    <div class="file-meta">
+                                        <span>PDF</span>
+                                        <span>2.7MB</span>
+                                    </div>
+                                </div>
+                                <button class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </li>
+                            <li class="file-item">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-title">الفيزياء الحديثة</div>
+                                    <div class="file-meta">
+                                        <span>PDF</span>
+                                        <span>1.9MB</span>
+                                    </div>
+                                </div>
+                                <button class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <div class="play-icon">
-                            <i class="fas fa-play"></i>
-                        </div>
+                <div class="library-card">
+                    <div class="library-header">
+                        <h3 class="library-name">الكيمياء</h3>
+                        <p>ملفات PDF ومراجع دراسية</p>
                     </div>
-                    <div class="video-info">
-                        <h3 class="video-title">التفاعلات الكيميائية الأساسية</h3>
-                        <div class="video-meta">
-                            <span>الكيمياء</span>
-                            <span>18 دقيقة</span>
-                        </div>
+                    <div class="library-body">
+                        <ul class="file-list">
+                            <li class="file-item">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-title">الكيمياء العضوية</div>
+                                    <div class="file-meta">
+                                        <span>PDF</span>
+                                        <span>2.3MB</span>
+                                    </div>
+                                </div>
+                                <button class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </li>
+                            <li class="file-item">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-title">الكيمياء التحليلية</div>
+                                    <div class="file-meta">
+                                        <span>PDF</span>
+                                        <span>1.7MB</span>
+                                    </div>
+                                </div>
+                                <button class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </li>
+                            <li class="file-item">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-info">
+                                    <div class="file-title">الكيمياء الفيزيائية</div>
+                                    <div class="file-meta">
+                                        <span>PDF</span>
+                                        <span>2.5MB</span>
+                                    </div>
+                                </div>
+                                <button class="download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -1413,9 +1570,9 @@
             <i class="fas fa-book-open"></i>
             <span>التعليم</span>
         </a>
-        <a href="#" class="nav-btn" id="videosBtn">
-            <i class="fas fa-video"></i>
-            <span>فيديوهات</span>
+        <a href="#" class="nav-btn" id="libraryBtn">
+            <i class="fas fa-book"></i>
+            <span>المكتبة</span>
         </a>
         <a href="#" class="nav-btn" id="testsBtn">
             <i class="fas fa-clipboard-check"></i>
@@ -1431,18 +1588,18 @@
         // ======== عناصر DOM ========
         const homeBtn = document.getElementById('homeBtn');
         const educationBtn = document.getElementById('educationBtn');
-        const videosBtn = document.getElementById('videosBtn');
+        const libraryBtn = document.getElementById('libraryBtn');
         const testsBtn = document.getElementById('testsBtn');
         const profileBtn = document.getElementById('profileBtn');
         
         const homePage = document.getElementById('homePage');
         const educationPage = document.getElementById('educationPage');
-        const videosPage = document.getElementById('videosPage');
+        const libraryPage = document.getElementById('libraryPage');
         const testsPage = document.getElementById('testsPage');
         const profilePage = document.getElementById('profilePage');
         
-        const navBtns = [homeBtn, educationBtn, videosBtn, testsBtn, profileBtn];
-        const pages = [homePage, educationPage, videosPage, testsPage, profilePage];
+        const navBtns = [homeBtn, educationBtn, libraryBtn, testsBtn, profileBtn];
+        const pages = [homePage, educationPage, libraryPage, testsPage, profilePage];
         
         // ======== إدارة التنقل ========
         function showPage(pageIndex) {
@@ -1460,7 +1617,7 @@
         // إضافة أحداث النقر للأزرار
         homeBtn.addEventListener('click', () => showPage(0));
         educationBtn.addEventListener('click', () => showPage(1));
-        videosBtn.addEventListener('click', () => showPage(2));
+        libraryBtn.addEventListener('click', () => showPage(2));
         testsBtn.addEventListener('click', () => showPage(3));
         profileBtn.addEventListener('click', () => showPage(4));
         
@@ -1500,7 +1657,7 @@
             showPage(0);
             
             // إضافة تأثيرات للبطاقات
-            const cards = document.querySelectorAll('.feature-card, .subject-card, .test-card, .video-card');
+            const cards = document.querySelectorAll('.feature-card, .subject-card, .test-card, .library-card');
             cards.forEach(card => {
                 card.addEventListener('mouseenter', () => {
                     card.style.transform = 'translateY(-10px)';
@@ -1508,6 +1665,16 @@
                 
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // محاكاة تنزيل الملفات
+            const downloadBtns = document.querySelectorAll('.download-btn');
+            downloadBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const fileName = this.closest('.file-item').querySelector('.file-title').textContent;
+                    alert(`سيتم تنزيل الملف: ${fileName}.pdf`);
                 });
             });
         });
